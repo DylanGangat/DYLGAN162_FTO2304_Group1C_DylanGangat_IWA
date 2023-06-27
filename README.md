@@ -1,2 +1,9 @@
-# DYLGAN162_FTO2304_Group1C_DylanGangat_IWA
-IWA JavaScript Fundamentals
+# IWA JavaScript Fundamentals
+
+**Author:** Dylan Gangat 🙋‍♂️
+
+We have to identify and fix any bugs in the code base we are given for all challenges. 
+
+## Technologies Used 👨‍💻
+
+- JavaScript
