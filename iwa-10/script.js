@@ -107,8 +107,8 @@ const firstMonth = new Date(firstHolidayTimestamp).getMonth();
 const lastDay = new Date(lastHolidayTimestamp).getDate();
 const lastMonth = new Date(lastHolidayTimestamp).getMonth();
 
-console.log(`0${firstDay}/0${firstMonth + 1}/${currentYear}`);
-console.log(`${lastDay}/${lastMonth + 1}/${currentYear}`);
+console.log(`${firstDay.toString().padStart(2, "0")}/${(firstMonth + 1).toString().padStart(2, "0")}/${currentYear}`);
+console.log(`${lastDay.toString().padStart(2, "0")}/${(lastMonth + 1).toString().padStart(2, "0")}/${currentYear}`);
 
 const randomHoliday = holidays[Math.round(Math.random() * 8)];
 const randomHolidayDate = new Date(randomHoliday.date); // I had to create a new Date Object because holidays[0].date isn't a date object but the rest is.
@@ -120,4 +120,3 @@ const randomHolidayDay = randomHolidayDate.getDate().toString().padStart(2, "0")
 const randomHolidayMonth = (randomHolidayDate.getMonth() + 1).toString().padStart(2, "0");
 
 console.log(`${randomHolidayDay}/${randomHolidayMonth}/${currentYear}`);
-
