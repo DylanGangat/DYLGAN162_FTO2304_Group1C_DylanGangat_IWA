@@ -4,11 +4,18 @@ let calculated = "1";
 
 // Only allowed to change below
 
+/**
+ * Converts a string to a number and reassigns the calculated = number
+ */
 const logCalc = () => {
   const isString = typeof calculated === "string";
   const calculatedAsNumber = isString ? parseInt(calculated) : calculated;
   calculated = calculatedAsNumber + 1;
 };
+
+/**
+ * Calls logCalc() and reassigns variables if it passes the condition
+ */
 
 const calcUser = () => {
   logCalc();
@@ -17,6 +24,9 @@ const calcUser = () => {
   if (calculated > 3) state = "idle";
 };
 
+/**
+ * Logs to the console if condtion is true
+ */
 const checkUser = () => {
   if (user && state === "requesting") {
     console.log(`User: ${user} (${calculated})`);
@@ -39,3 +49,5 @@ calcUser();
 
 checkUser();
 calcUser();
+
+
