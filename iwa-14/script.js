@@ -17,3 +17,24 @@ const fizzBuzzChallenge = number => {
 };
 
 fizzBuzzChallenge(10);
+
+// Challenge 1
+
+const firstName = "John";
+const age = 35;
+const hobby = "Coding";
+
+/**
+ * Logs out the value
+ * @param {string} parameter - The string to log out
+ */
+const logTwice = parameter => {
+  console.log(parameter);
+  console.log(parameter);
+};
+
+function showHobby() {
+  logTwice(`Hello, ${firstName} (${age}). I love ${hobby}!`);
+}
+
+showHobby();
