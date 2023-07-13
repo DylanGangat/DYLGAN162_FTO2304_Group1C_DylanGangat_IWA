@@ -41,21 +41,35 @@ showHobby();
 
 // Challenge 2
 
+/**
+ * Adds numbers together
+ * @returns {number} Returns the sum
+ */
+
 function add() {
-  // add is bound to parent object example1/2
-  return this.internal.a + this.internal.b;
+  return this.a + this.b;
 }
 
+/**
+ * Multiples numbers
+ * @param {number} added - Passes a number 
+ * @returns {number} Returns the sum of added * c
+ */
 function multiply(added) {
-  // mutiply is bound to parent object example1/2
-  return added * this.internal.c;
+  return added * this.c;
 }
 
+/**
+ * Makes use of this keyword to bind functions to the object and log out result
+ */
 function internal() {
-  // internal is bound to parent object example1/2
-  const added = this.add();
-  const answer = this.multiply(added);
-  console.log(answer);
+  // Makes the this = internal object
+  // bound add function to internal object so we can use it's properties to return a value
+  const added = this.add.call(this.internal);
+  // Makes the this = internal object
+  // bound the mutilpy function to internal object so we can use it's properties to return a value
+  const result = this.multiply.call(this.internal, added);
+  console.log(result);
 }
 
 // Not allowed to change below this
