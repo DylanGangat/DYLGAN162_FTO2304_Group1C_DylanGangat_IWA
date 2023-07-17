@@ -17,7 +17,7 @@ const fizzBuzzChallenge = number => {
   }
 };
 
-for (let i = 1; i < 100; i++) {
+for (let i = 1; i <= 100; i++) {
   fizzBuzzChallenge(i);
 }
 
@@ -46,32 +46,31 @@ showHobby();
 
 /**
  * Adds numbers together
- * @returns {number} Returns the sum
+ * @param {Number} a - passes a number
+ * @param {Number} b - passes a number
+ * @returns {number} Returns the sum of the two numbers
  */
 
-function add() {
-  return this.a + this.b;
-}
+const add = (a, b) => {
+  return a + b;
+};
 
 /**
- * Multiples numbers
- * @param {number} added - Passes a number
- * @returns {number} Returns the sum of added * c
+ * Multiples numbers together and returns value
+ * @param {Number} added - passes in a number
+ * @param {Number} c - passes in a number
+ * @returns {Number}
  */
-function multiply(added) {
-  return added * this.c;
-}
+const multiply = (added, c) => {
+  return added * c;
+};
 
 /**
- * Makes use of this keyword to bind functions to the object and log out result
+ * Makes use of the this keyword to get the values for the arguements
  */
 function internal() {
-  // Makes the this = internal object
-  // bound add function to internal object so we can use it's properties to return a value
-  const added = this.add.call(this.internal);
-  // Makes the this = internal object
-  // bound the mutilpy function to internal object so we can use it's properties to return a value
-  const result = this.multiply.call(this.internal, added);
+  const added = this.add(this.internal.a, this.internal.b);
+  const result = this.multiply(added, this.internal.c);
   console.log(result);
 }
 
