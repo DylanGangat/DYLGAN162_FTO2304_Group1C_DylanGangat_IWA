@@ -6,17 +6,20 @@
  */
 
 const fizzBuzzChallenge = number => {
-  number = parseInt(number);
   if (number % 3 === 0 && number % 5 === 0) {
-    console.log("Fizz buzz");
+    console.log("Fizz Buzz");
   } else if (number % 3 === 0) {
     console.log("Fizz");
   } else if (number % 5 === 0) {
     console.log("Buzz");
+  } else {
+    console.log(number);
   }
 };
 
-fizzBuzzChallenge(10);
+for (let i = 1; i < 100; i++) {
+  fizzBuzzChallenge(i);
+}
 
 // Challenge 1
 
@@ -52,7 +55,7 @@ function add() {
 
 /**
  * Multiples numbers
- * @param {number} added - Passes a number 
+ * @param {number} added - Passes a number
  * @returns {number} Returns the sum of added * c
  */
 function multiply(added) {
