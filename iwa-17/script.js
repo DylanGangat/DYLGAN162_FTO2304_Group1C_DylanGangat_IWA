@@ -1,9 +1,17 @@
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-// Gets you the first day of next month but by using a day = 0 in the Date object it goes back on day from the 1st of the next month.
+// Returns the number of days in a month for a given date.
+// The 0 in the third parameter of the new Date() sets the day to 0, which means one day less than the first day of the month, resulting in the last day of the previous month.
 const getDaysInMonth = date => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
 // Only edit below
+
+/**
+ * Creates an array of numbers with a specified length.
+ *
+ * @param {number} length - The length of the array to be created.
+ * @returns {Array} An array of numbers.
+ */
 
 const createArray = length => {
   const result = [];
@@ -16,44 +24,35 @@ const createArray = length => {
 };
 
 /**
- * Creates and stores a months days and weeks in an object that will be used createHtml function
- * @returns {Object}
+ * Creates an array of objects representing the weeks and days of a month.
+ *
+ * @returns {Array} An array of objects containing week and days properties.
  */
+
 const createData = () => {
-  // Current date which is 20 July
   const current = new Date();
-  //   console.log(current);
   // Sets date to the 1st
   current.setDate(1);
-  console.log("1st of a Month: ", current);
-  // Get the day 6 which is Saturday
+  // Get the 1st of the month
   const startDay = current.getDay();
-  console.log("startDay: ", startDay);
   // Get max amount of days in the month
   const daysInMonth = getDaysInMonth(current);
-  console.log("daysInMonth: ", daysInMonth);
 
   const weeks = createArray(6);
-  // console.log("Weeks: ", weeks);
-
-  // Days of the week starting with 0 as sunday
+  // Days of the week format 0-6 (sun-sat)
   const days = createArray(7);
 
   const result = [];
+
   for (const weekIndex of weeks) {
-    // console.log("weeks: ", weeks, "weekIndex: ", weekIndex);
     result.push({
       week: weekIndex + 1,
       days: [],
     });
 
     for (const dayIndex of days) {
-      //   console.log("Days: ", days, "DayIndex: ", dayIndex, "StartDay: ", startDay, "weekIndex: ", weekIndex);
       const day = dayIndex - startDay + weekIndex * 7 + 1;
-      console.log("Day: ", day);
-
       const isValid = day > 0 && day <= daysInMonth;
-      //   console.log(isValid);
 
       result[weekIndex].days.push({
         dayOfWeek: dayIndex + 1,
@@ -61,12 +60,18 @@ const createData = () => {
       });
     }
   }
-  console.log("Results: ", result);
 
   return result;
 };
 
-// 3. This will be use in the createHtml() and returns value to it
+/**
+ * Adds a table data cell (td) to an existing HTML string.
+ *
+ * @param {string} existing - The existing HTML string.
+ * @param {string} classString - The class string for the td cell.
+ * @param {number} value - The value to be displayed in the td cell.
+ * @returns {string} - The updated HTML string with the added td cell.
+ */
 
 const addCell = (existing, classString, value) => {
   const result = /* html */ `
@@ -81,30 +86,25 @@ const addCell = (existing, classString, value) => {
 };
 
 /**
- * Loops through the a given months weeks and its corresponding days, creating html td (table data) elements for their individual values that will return and be visible in the browser.
- *  Creates each of the weeks and their days as a td element that will be return in a tr element and displayed within the tbody parent tag.
- *  @param {Object} data
- * @returns Html markup to be outputted in the tbody element
+ * Creates an HTML table from an array of objects.
+ *
+ * @param {Array} data - An array of objects containing week and days properties.
+ * @returns {string} - An HTML table string.
  */
-const createHtml = data => {
-  console.log("createHtml DATA", data);
 
+const createHtml = data => {
   let result = "";
 
   for (const { week, days } of data) {
-    // Loops once for the week and then loops again for the days of that week
-    console.log("Week:", week, "Days: ", days);
+    // Loops once for the week and then has a nested loop for each day of that week
 
     let inner = "";
     inner = addCell(inner, "table__cell table__cell_sidebar", `Week ${week}`);
-    console.log("Inner1: ", inner);
-    console.log("result html: ", result);
+
     for (const { dayOfWeek, value } of days) {
       const isToday = new Date().getDate() === value;
       const isWeekend = dayOfWeek === 1 || dayOfWeek === 7;
       const isAlternate = week % 2 === 0;
-
-      console.log("dayOfWeek: ", dayOfWeek, "value: ", value, "isToday: ", isToday, "isWeekend: ", isWeekend, "isAlternate: ", isAlternate, "Week: ", week);
 
       let classString = "table__cell";
       if (isToday) classString = `${classString} table__cell_today`;
@@ -112,7 +112,6 @@ const createHtml = data => {
       if (isAlternate) classString = `${classString} table__cell_alternate`;
       inner = addCell(inner, classString, value);
     }
-    console.log("Inner2: ", inner);
     // Adds the week and its days and then loops to the next week.
     result = `
         ${result}
