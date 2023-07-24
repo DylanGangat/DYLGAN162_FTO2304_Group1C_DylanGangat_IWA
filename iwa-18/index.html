@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kitchen Express</title>
-    <link rel="stylesheet" href="/styles.css" />
-    <script src="/scripts.js" defer type="module"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./scripts.js" defer type="module"></script>
   </head>
 
   <body>
@@ -16,7 +16,7 @@
         <button class="button button_primary" data-add>Add Order</button>
       </div>
     </header>
-
+    <!-- help  -->
     <dialog class="overlay" data-help-overlay>
       <h2 class="overlay__title">Help</h2>
       <p><strong>To use the app, you can start by adding a new order by clicking the "add order" button.</strong></p>
@@ -25,7 +25,7 @@
         <button class="button" type="button" data-help-cancel>Close</button>
       </div>
     </dialog>
-
+    <!-- add  -->
     <dialog class="overlay" data-add-overlay>
       <div class="overlay__top">
         <h2 class="overlay__title">Add Order</h2>
@@ -48,7 +48,7 @@
         <button class="button button_primary" type="submit" form="add-form">Add</button>
       </div>
     </dialog>
-
+    <!-- edit  -->
     <dialog class="overlay" data-edit-overlay>
       <div class="overlay__top">
         <h2 class="overlay__title">Edit Order</h2>
