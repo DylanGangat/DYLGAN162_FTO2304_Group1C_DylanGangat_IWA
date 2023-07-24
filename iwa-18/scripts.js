@@ -61,15 +61,15 @@ const handleAddToggle = event => {
 
 const handleAddSubmit = event => {
   event.preventDefault();
-// Store user input values for the title, table and assign column value to equal "ordered"
+  // Store user input values for the title, table and assign column value to equal "ordered"
   const order = {
     title: html.add.title.value,
     table: html.add.table.value,
     column: html.columns.ordered.getAttribute("data-column"),
   };
-// Set state orders object to the object that has been modified in the createOrderData()
+  // Set state orders object to the object that has been modified in the createOrderData()
   state.orders = createOrderData(order);
-// Create and return Html DIV element which includes certain values from the state.orders object
+  // Create and return Html DIV element which includes certain values from the state.orders object
   const element = createOrderHtml(state.orders);
   // If we only want one order throughout using the app
   // html.columns[state.orders.column].innerHTML = "";
@@ -82,7 +82,24 @@ const handleAddSubmit = event => {
   // console.log("STATE: ", state.orders, "HTML ORDER ELEMENT: ", element, "HTML: ", html);
 };
 
-const handleEditToggle = event => {};
+const handleEditToggle = event => {
+  console.log(event.target);
+  html.edit.overlay.toggleAttribute("open");
+
+  // if (event.target.closest(".order").hasAttribute("draggable")) {
+  //   html.edit.overlay.toggleAttribute("open");
+  //   const { title, table, column } = state.orders;
+  //   html.edit.title.value = title;
+  //   html.edit.table.value = table;
+  //   html.edit.column.value = column;
+  //   console.log("STATE: ", state.orders, title, table, column);
+  // }
+  // if (event.target.hasAttribute("data-edit-cancel")) {
+  //   console.log(event.target);
+  //   html.edit.overlay.toggleAttribute("open");
+  // }
+};
+
 const handleEditSubmit = event => {};
 const handleDelete = event => {};
 
