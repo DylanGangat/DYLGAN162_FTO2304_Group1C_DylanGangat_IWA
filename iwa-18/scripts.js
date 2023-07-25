@@ -62,37 +62,21 @@ const handleAddToggle = event => {
 const handleAddSubmit = event => {
   event.preventDefault();
   // Store user input values for the title, table and assign column value to equal "ordered"
-  // const order = {
-  //   title: html.add.title.value,
-  //   table: html.add.table.value,
-  //   column: html.columns.ordered.getAttribute("data-column"),
-  // };
-  // // Set state orders object to the object that has been modified in the createOrderData()
-  // state.orders = createOrderData(order);
-  // =============================================================
+
   const order = createOrderData({
     title: html.add.title.value,
     table: html.add.table.value,
     column: html.columns.ordered.getAttribute("data-column"),
   });
-  // Set state orders object to the object that has been modified in the createOrderData()
-  console.log("ORDER: ", order);
 
   state.orders[order.id] = order;
   const element = createOrderHtml(state.orders[order.id]);
-  // =========================================
 
-  // Create and return Html DIV element which includes certain values from the state.orders object
-  // const element = createOrderHtml(state.orders);
-  // If we only want one order throughout using the app
-  // html.columns[state.orders.column].innerHTML = "";
   html.columns[order.column].appendChild(element);
 
   // Hide Overlay with remove attribute and Reset the add order form
   html.add.overlay.removeAttribute("open");
   html.add.form.reset();
-  console.log("STATE: ", state);
-  // console.log("STATE: ", state.orders, "HTML ORDER ELEMENT: ", element, "HTML: ", html);
 };
 
 const handleEditToggle = event => {
@@ -101,7 +85,7 @@ const handleEditToggle = event => {
   if (parentElement?.matches(".order")) {
     html.edit.overlay.setAttribute("open", "");
     const id = parentElement.getAttribute("data-id");
-    // console.log("ID: ", id);
+
     const { title, table, column } = state.orders[id];
     html.edit.title.value = title;
     html.edit.table.value = table;
@@ -110,28 +94,41 @@ const handleEditToggle = event => {
   }
 
   if (event.target.hasAttribute("data-edit-cancel")) {
-    // console.log(event.target);
     html.edit.overlay.removeAttribute("open");
   }
+};
+
+const handleEditSubmitReset = () => {
+  Object.values(html.columns).forEach(column => {
+    column.innerHTML = "";
+  });
+
+  Object.values(state.orders).forEach(item => {
+    const element = createOrderHtml(item);
+    html.columns[item.column].appendChild(element);
+  });
+  html.edit.form.reset();
+  html.edit.overlay.removeAttribute("open");
 };
 
 const handleEditSubmit = event => {
   event.preventDefault();
   const id = html.edit.id.getAttribute("data-edit-id");
-  console.log("Edit submit", state.orders);
   const order = state.orders[id];
-  console.log("ID: ", id, "BEFORE: ", order);
 
   order.title = html.edit.title.value;
   order.table = html.edit.table.value;
   order.column = html.edit.column.value;
   order.created = new Date();
-  console.log("AFTER: ", state.orders[id]);
 
-  const element = createOrderHtml(order);
-  html.columns[order.column].appendChild(element);
+  handleEditSubmitReset();
 };
-const handleDelete = event => {};
+
+const handleDelete = event => {
+  const id = html.edit.id.getAttribute("data-edit-id");
+  delete state.orders[id];
+  handleEditSubmitReset();
+};
 
 html.add.cancel.addEventListener("click", handleAddToggle);
 html.other.add.addEventListener("click", handleAddToggle);
