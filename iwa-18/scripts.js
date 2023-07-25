@@ -62,18 +62,32 @@ const handleAddToggle = event => {
 const handleAddSubmit = event => {
   event.preventDefault();
   // Store user input values for the title, table and assign column value to equal "ordered"
-  const order = {
+  // const order = {
+  //   title: html.add.title.value,
+  //   table: html.add.table.value,
+  //   column: html.columns.ordered.getAttribute("data-column"),
+  // };
+  // // Set state orders object to the object that has been modified in the createOrderData()
+  // state.orders = createOrderData(order);
+  // =============================================================
+  const order = createOrderData({
     title: html.add.title.value,
     table: html.add.table.value,
     column: html.columns.ordered.getAttribute("data-column"),
-  };
+  });
   // Set state orders object to the object that has been modified in the createOrderData()
-  state.orders = createOrderData(order);
+  console.log(order);
+
+  state.orders[order.id] = order;
+  console.log(state);
+  const element = createOrderHtml(state.orders[order.id]);
+  // =========================================
+
   // Create and return Html DIV element which includes certain values from the state.orders object
-  const element = createOrderHtml(state.orders);
+  // const element = createOrderHtml(state.orders);
   // If we only want one order throughout using the app
   // html.columns[state.orders.column].innerHTML = "";
-  html.columns[state.orders.column].appendChild(element);
+  html.columns[order.column].appendChild(element);
 
   // Hide Overlay with remove attribute and Reset the add order form
   html.add.overlay.removeAttribute("open");
@@ -83,21 +97,20 @@ const handleAddSubmit = event => {
 };
 
 const handleEditToggle = event => {
-  console.log(event.target);
-  html.edit.overlay.toggleAttribute("open");
+  const parentElement = event.target.closest(".order");
 
-  // if (event.target.closest(".order").hasAttribute("draggable")) {
-  //   html.edit.overlay.toggleAttribute("open");
-  //   const { title, table, column } = state.orders;
-  //   html.edit.title.value = title;
-  //   html.edit.table.value = table;
-  //   html.edit.column.value = column;
-  //   console.log("STATE: ", state.orders, title, table, column);
-  // }
-  // if (event.target.hasAttribute("data-edit-cancel")) {
-  //   console.log(event.target);
-  //   html.edit.overlay.toggleAttribute("open");
-  // }
+  if (parentElement?.matches(".order")) {
+    html.edit.overlay.setAttribute("open", "");
+    const { title, table, column } = state.orders;
+    html.edit.title.value = title;
+    html.edit.table.value = table;
+    html.edit.column.value = column;
+  }
+
+  if (event.target.hasAttribute("data-edit-cancel")) {
+    console.log(event.target);
+    html.edit.overlay.removeAttribute("open");
+  }
 };
 
 const handleEditSubmit = event => {};
