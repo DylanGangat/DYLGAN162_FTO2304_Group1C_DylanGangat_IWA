@@ -1,5 +1,5 @@
-import { html, createOrderHtml } from "./view.js";
-import { state, createOrderData } from "./data.js";
+import { html, createOrderHtml, moveToColumn, updateDraggingHtml } from "./view.js";
+import { state, createOrderData, updateDragging } from "./data.js";
 
 /**
  * A handler that fires when a user drags over any element inside a column. In
@@ -30,8 +30,30 @@ const handleDragOver = event => {
   updateDraggingHtml({ over: column });
 };
 
-const handleDragStart = event => {};
-const handleDragEnd = event => {};
+// ==================== Couldn't complete this =================================
+
+// Sets id and column and updateDragging function
+const handleDragStart = event => {
+  // const id = event.target.dataset.id;
+  // const column = event.target.parentElement.getAttribute("data-column");
+  // event.dataTransfer.setData("id", id);
+  // event.dataTransfer.setData("column", column);
+  // console.log("AFTER: ", event.dataTransfer);
+  // // Update the dragging state
+  // console.log(state);
+  // updateDragging({ source: id });
+  // console.log(state);
+};
+
+// Gets id and columd data and calls moveToColumn function which will append the element to a different column
+const handleDragEnd = event => {
+  // event.preventDefault();
+  // const id = event.dataTransfer.getData("id");
+  // const column = event.dataTransfer.getData("column");
+  // moveToColumn(id, column);
+};
+
+// ==============================================================
 
 /**
  * Toggles open attribute to show or hide the "data help overlay" dialog element
@@ -59,6 +81,10 @@ const handleAddToggle = event => {
   }
 };
 
+/**
+ * Create and displays a element from the user inputs values that has been submitted from the Add form
+ * @param {*} event
+ */
 const handleAddSubmit = event => {
   event.preventDefault();
   // Store user input values for the title, table and assign column value to equal "ordered"
@@ -66,7 +92,7 @@ const handleAddSubmit = event => {
   const order = createOrderData({
     title: html.add.title.value,
     table: html.add.table.value,
-    column: html.columns.ordered.getAttribute("data-column"),
+    column: html.columns.ordered.dataset.column,
   });
 
   state.orders[order.id] = order;
@@ -79,6 +105,10 @@ const handleAddSubmit = event => {
   html.add.form.reset();
 };
 
+/**
+ * When one of the elements are clicked it opens up the Edit Order Form showing its previous values inside the inputs and the cancel button will hide the Edit Order Form.
+ * @param {*} event
+ */
 const handleEditToggle = event => {
   const parentElement = event.target.closest(".order");
 
@@ -98,6 +128,9 @@ const handleEditToggle = event => {
   }
 };
 
+/**
+ * A helper function that clears the columns html before appending all the updated element to their columns from state.order object
+ */
 const handleEditSubmitReset = () => {
   Object.values(html.columns).forEach(column => {
     column.innerHTML = "";
@@ -111,6 +144,10 @@ const handleEditSubmitReset = () => {
   html.edit.overlay.removeAttribute("open");
 };
 
+/**
+ * Updates a specific object in the state orders object with the use of it's unique id and displays the updated element on the page.
+ * @param {*} event
+ */
 const handleEditSubmit = event => {
   event.preventDefault();
   const id = html.edit.id.getAttribute("data-edit-id");
@@ -124,6 +161,10 @@ const handleEditSubmit = event => {
   handleEditSubmitReset();
 };
 
+/**
+ * Deletes a specific object with an unique id in the state orders object and updates the page removing it's element from the page.
+ * @param {} event
+ */
 const handleDelete = event => {
   const id = html.edit.id.getAttribute("data-edit-id");
   delete state.orders[id];
