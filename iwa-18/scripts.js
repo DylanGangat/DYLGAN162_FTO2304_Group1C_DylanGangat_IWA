@@ -76,10 +76,9 @@ const handleAddSubmit = event => {
     column: html.columns.ordered.getAttribute("data-column"),
   });
   // Set state orders object to the object that has been modified in the createOrderData()
-  console.log(order);
+  console.log("ORDER: ", order);
 
   state.orders[order.id] = order;
-  console.log(state);
   const element = createOrderHtml(state.orders[order.id]);
   // =========================================
 
@@ -101,19 +100,37 @@ const handleEditToggle = event => {
 
   if (parentElement?.matches(".order")) {
     html.edit.overlay.setAttribute("open", "");
-    const { title, table, column } = state.orders;
+    const id = parentElement.getAttribute("data-id");
+    // console.log("ID: ", id);
+    const { title, table, column } = state.orders[id];
     html.edit.title.value = title;
     html.edit.table.value = table;
     html.edit.column.value = column;
+    html.edit.id.setAttribute("data-edit-id", id);
   }
 
   if (event.target.hasAttribute("data-edit-cancel")) {
-    console.log(event.target);
+    // console.log(event.target);
     html.edit.overlay.removeAttribute("open");
   }
 };
 
-const handleEditSubmit = event => {};
+const handleEditSubmit = event => {
+  event.preventDefault();
+  const id = html.edit.id.getAttribute("data-edit-id");
+  console.log("Edit submit", state.orders);
+  const order = state.orders[id];
+  console.log("ID: ", id, "BEFORE: ", order);
+
+  order.title = html.edit.title.value;
+  order.table = html.edit.table.value;
+  order.column = html.edit.column.value;
+  order.created = new Date();
+  console.log("AFTER: ", state.orders[id]);
+
+  const element = createOrderHtml(order);
+  html.columns[order.column].appendChild(element);
+};
 const handleDelete = event => {};
 
 html.add.cancel.addEventListener("click", handleAddToggle);
