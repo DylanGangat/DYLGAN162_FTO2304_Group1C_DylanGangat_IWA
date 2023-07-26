@@ -68,7 +68,7 @@ const handleHelpToggle = event => {
 };
 
 /**
- * Toggles open attribute to show or hide the "data add overlay" dialog element
+ * Toggles open attribute to show or hide the Add Order Form
  * @param {*} event
  */
 const handleAddToggle = event => {
@@ -82,12 +82,13 @@ const handleAddToggle = event => {
 };
 
 /**
- * Create and displays a element from the user inputs values that has been submitted from the Add form
+ * Take the values a user inputs and creates an unique object with it
+ * stores it in the state.orders object
+ * creates an element from the object and displays it on the page.
  * @param {*} event
  */
 const handleAddSubmit = event => {
   event.preventDefault();
-  // Store user input values for the title, table and assign column value to equal "ordered"
 
   const order = createOrderData({
     title: html.add.title.value,
@@ -106,7 +107,8 @@ const handleAddSubmit = event => {
 };
 
 /**
- * When one of the elements are clicked it opens up the Edit Order Form showing its previous values inside the inputs and the cancel button will hide the Edit Order Form.
+ * When one of the elements are clicked it opens up the Edit Order Form 
+ * showing its previous values inside the inputs and the cancel button will hide the Edit Order Form.
  * @param {*} event
  */
 const handleEditToggle = event => {
