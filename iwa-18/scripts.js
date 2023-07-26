@@ -30,30 +30,21 @@ const handleDragOver = event => {
   updateDraggingHtml({ over: column });
 };
 
-// ==================== Couldn't complete this =================================
 
 // Sets id and column and updateDragging function
+
 const handleDragStart = event => {
-  // const id = event.target.dataset.id;
-  // const column = event.target.parentElement.getAttribute("data-column");
-  // event.dataTransfer.setData("id", id);
-  // event.dataTransfer.setData("column", column);
-  // console.log("AFTER: ", event.dataTransfer);
-  // // Update the dragging state
-  // console.log(state);
-  // updateDragging({ source: id });
-  // console.log(state);
+  const { id } = event.target.dataset;
+  const { column } = state.orders[id];
+  updateDragging({ source: id, over: column });
 };
 
 // Gets id and columd data and calls moveToColumn function which will append the element to a different column
 const handleDragEnd = event => {
-  // event.preventDefault();
-  // const id = event.dataTransfer.getData("id");
-  // const column = event.dataTransfer.getData("column");
-  // moveToColumn(id, column);
+  event.preventDefault();
+  const { source, over } = state.dragging;
+  moveToColumn(source, over);
 };
-
-// ==============================================================
 
 /**
  * Toggles open attribute to show or hide the "data help overlay" dialog element
@@ -107,7 +98,7 @@ const handleAddSubmit = event => {
 };
 
 /**
- * When one of the elements are clicked it opens up the Edit Order Form 
+ * When one of the elements are clicked it opens up the Edit Order Form
  * showing its previous values inside the inputs and the cancel button will hide the Edit Order Form.
  * @param {*} event
  */
