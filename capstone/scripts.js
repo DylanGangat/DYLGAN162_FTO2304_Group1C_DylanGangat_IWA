@@ -115,7 +115,7 @@ html.search.genres.appendChild(createGenreOptionsHtml());
 // document.documentElement.style.setProperty('--color-dark', css[v].dark);
 // document.documentElement.style.setProperty('--color-light', css[v].light);
 
-// /* ==========================================  ========================================== */
+// /* ========================================== MORE BUTTON WITH DYNAMIC BOOKS NUMBER ========================================== */
 
 // data-list-button = "Show more (books.length - BOOKS_PER_PAGE)"
 
@@ -128,9 +128,10 @@ html.search.genres.appendChild(createGenreOptionsHtml());
 
 // /* ==========================================  EVENT LISTENERS ========================================== */
 
-// data-search-cancel.click() { data-search-overlay.open === false }
-// data-settings-cancel.click() { querySelect(data-settings-overlay).open === false }
+// Dark theme settings where you sumbit data
 // data-settings-form.submit() { actions.settings.submit }
+
+// show book event where you close it
 // data-list-close.click() { data-list-active.open === false }
 
 // data-list-button.click() {
@@ -235,19 +236,17 @@ html.search.genres.appendChild(createGenreOptionsHtml());
 
 // Open search menu
 html.search.button.addEventListener("click", event => {
-  if (!event.target.closest("button")) return;
   html.search.overlay.setAttribute("open", "");
   html.search.title.focus();
 });
 // Close search menu
 html.search.cancel.addEventListener("click", event => {
   html.search.overlay.removeAttribute("open");
+  html.search.form.reset();
 });
 
-// html.search - overlay.addEventListener("click", () => {});
 // Open settings menu
 html.settings.button.addEventListener("click", event => {
-  if (!event.target.closest("button")) return;
   html.settings.overlay.setAttribute("open", "");
 });
 // Close settings menu
