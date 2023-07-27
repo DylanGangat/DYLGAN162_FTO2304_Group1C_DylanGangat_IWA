@@ -69,42 +69,77 @@ for (const book of extractedBooks) {
 
 html.list.items.appendChild(fragment);
 
-/* ========================================== GENRES OPTION CREATION ========================================= */
+/**
+ * Creates an HTML document fragment containing genre options.
+ *
+ * This function generates an HTML document fragment that includes a default "All Genres" option
+ * and additional genre options based on the provided genres object.
+ *
+ * @returns {DocumentFragment} The HTML document fragment with genre options.
+ */
+
 const createGenreOptionsHtml = () => {
   const fragment = document.createDocumentFragment();
-  const element = document.createElement("option");
-  element.value = "any";
-  element.innerText = "All Genres";
-  fragment.appendChild(element);
+  /**
+   * Default "All Genres" option.
+   * @type {HTMLOptionElement}
+   */
+  const allGenresOption = document.createElement("option");
+  allGenresOption.value = "any";
+  allGenresOption.innerText = "All Genres";
+  fragment.appendChild(allGenresOption);
 
   for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement("option");
-    element.value = id;
-    element.innerText = name;
-    fragment.appendChild(element);
+    /**
+     * Genre option element.
+     * @type {HTMLOptionElement}
+     */
+    const genreOption = document.createElement("option");
+    genreOption.value = id;
+    genreOption.innerText = name;
+    fragment.appendChild(genreOption);
   }
 
   return fragment;
 };
-createGenreOptionsHtml();
+
 html.search.genres.appendChild(createGenreOptionsHtml());
 
-// /* ========================================== AUTHOR OPTION CREATION ========================================= */
+/**
+ * Creates an HTML document fragment containing author options.
+ *
+ * This function generates an HTML document fragment that includes a default "All Authors" option
+ * and additional author options based on the provided authors object.
+ *
+ * @returns {DocumentFragment} The HTML document fragment with author options.
+ */
 
-// authors = document.createDocumentFragment()
-// element = document.createElement('option')
-// element.value = 'any'
-// element.innerText = 'All Authors'
-// authors.appendChild(element)
+const createAuthorOptionsHtml = () => {
+  const fragment = document.createDocumentFragment();
+  /**
+   * Default "All Authors" option.
+   * @type {HTMLOptionElement}
+   */
+  const allAuthorsOption = document.createElement("option");
+  allAuthorsOption.value = "any";
+  allAuthorsOption.innerText = "All Authors";
+  fragment.appendChild(allAuthorsOption);
+  console.log(allAuthorsOption);
 
-// for ([id, name];Object.entries(authors); id++) {
-//     document.createElement('option')
-//     element.value = value
-//     element = text
-//     authors.appendChild(element)
-// }
+  for (const [id, name] of Object.entries(authors)) {
+    /**
+     * Author option element.
+     * @type {HTMLOptionElement}
+     */
+    const authorOption = document.createElement("option");
+    authorOption.value = id;
+    authorOption.innerText = name;
+    fragment.appendChild(authorOption);
+  }
+  return fragment;
+};
 
-// data-search-authors.appendChild(authors)
+html.search.authors.appendChild(createAuthorOptionsHtml());
 
 // /* ========================================== DARK + LIGHT MODE THEME START ========================================= */
 // // Dark + Light Theme mode
