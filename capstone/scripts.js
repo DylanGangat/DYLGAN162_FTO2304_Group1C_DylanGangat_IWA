@@ -139,11 +139,6 @@ html.search.genres.appendChild(createGenreOptionsHtml());
 //     page = page + 1
 // }
 
-// data-header-search.click() {
-//     data-search-overlay.open === true ;
-//     data-search-title.focus();
-// }
-
 // data-search-form.click(filters) {
 //     preventDefault()
 //     const formData = new FormData(event.target)
@@ -238,10 +233,24 @@ html.search.genres.appendChild(createGenreOptionsHtml());
 
 // }
 
+// Open search menu
 html.search.button.addEventListener("click", event => {
-  console.log("click", event.target.closest("button"));
+  if (!event.target.closest("button")) return;
+  html.search.overlay.setAttribute("open", "");
+  html.search.title.focus();
+});
+// Close search menu
+html.search.cancel.addEventListener("click", event => {
+  html.search.overlay.removeAttribute("open");
 });
 
+// html.search - overlay.addEventListener("click", () => {});
+// Open settings menu
 html.settings.button.addEventListener("click", event => {
-  console.log("settings", event.target.closest("button"));
+  if (!event.target.closest("button")) return;
+  html.settings.overlay.setAttribute("open", "");
+});
+// Close settings menu
+html.settings.cancel.addEventListener("click", event => {
+  html.settings.overlay.removeAttribute("open");
 });
