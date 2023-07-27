@@ -70,20 +70,24 @@ for (const book of extractedBooks) {
 html.list.items.appendChild(fragment);
 
 /* ========================================== GENRES OPTION CREATION ========================================= */
-// genres = document.createDocumentFragment()
-// element = document.createElement('option')
-// element.value = 'any'
-// element = 'All Genres'
-// genres.appendChild(element)
+const createGenreOptionsHtml = () => {
+  const fragment = document.createDocumentFragment();
+  const element = document.createElement("option");
+  element.value = "any";
+  element.innerText = "All Genres";
+  fragment.appendChild(element);
 
-// for ([id, name]; Object.entries(genres); i++) {
-//     document.createElement('option')
-//     element.value = value
-//     element.innerText = text
-//     genres.appendChild(element)
-// }
+  for (const [id, name] of Object.entries(genres)) {
+    const element = document.createElement("option");
+    element.value = id;
+    element.innerText = name;
+    fragment.appendChild(element);
+  }
 
-// data-search-genres.appendChild(genres)
+  return fragment;
+};
+createGenreOptionsHtml();
+html.search.genres.appendChild(createGenreOptionsHtml());
 
 // /* ========================================== AUTHOR OPTION CREATION ========================================= */
 
@@ -231,4 +235,13 @@ html.list.items.appendChild(fragment);
 
 //     data-list-subtitle === '${authors[active.author]} (${Date(active.published).year})'
 //     data-list-description === active.description
+
 // }
+
+html.search.button.addEventListener("click", event => {
+  console.log("click", event.target.closest("button"));
+});
+
+html.settings.button.addEventListener("click", event => {
+  console.log("settings", event.target.closest("button"));
+});
