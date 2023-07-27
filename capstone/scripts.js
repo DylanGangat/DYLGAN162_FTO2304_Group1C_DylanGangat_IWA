@@ -28,17 +28,6 @@ const css = {
  * @param {string} book.image - The URL of the book's cover image.
  * @param {string} book.title - The title of the book.
  * @returns {HTMLButtonElement} The generated button element representing the book preview.
- *
- * @example
- * const book = {
- *   author: "authorId123",
- *   id: "bookId456",
- *   image: "https://example.com/book456.jpg",
- *   title: "Sample Book Title"
- * };
- *
- * const previewButton = createPreview(book);
- * document.getElementById("preview-container").appendChild(previewButton);
  */
 const createPreview = book => {
   const { author: authorId, id, image, title } = book;
@@ -124,7 +113,6 @@ const createAuthorOptionsHtml = () => {
   allAuthorsOption.value = "any";
   allAuthorsOption.innerText = "All Authors";
   fragment.appendChild(allAuthorsOption);
-  console.log(allAuthorsOption);
 
   for (const [id, name] of Object.entries(authors)) {
     /**
@@ -152,22 +140,31 @@ html.search.authors.appendChild(createAuthorOptionsHtml());
 
 // /* ========================================== MORE BUTTON WITH DYNAMIC BOOKS NUMBER ========================================== */
 
-// data-list-button = "Show more (books.length - BOOKS_PER_PAGE)"
+html.list.button.innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
 
-// data-list-button.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
+// If the [page * BOOKS_PER_PAGE] is greater than the matches.length then you would want to disable the list button
+html.list.button.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0);
 
-// data-list-button.innerHTML = /* html */ [
-//     '<span>Show more</span>',
-//     '<span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>',
-// ]
+html.list.button.innerHTML = /* html */ `
+  <span>Show more</span>
+  <span class="list__remaining"> (${matches.length - page * BOOKS_PER_PAGE > 0 ? matches.length - page * BOOKS_PER_PAGE : 0})</span>
+`;
 
 // /* ==========================================  EVENT LISTENERS ========================================== */
 
 // Dark theme settings where you sumbit data
 // data-settings-form.submit() { actions.settings.submit }
+html.settings.form.addEventListener("submit", event => {
+  event.preventDefault();
+  const { value } = html.settings.theme;
+  //   html.other["theme"] = value;
+  console.log(value);
+});
 
 // show book event where you close it
-// data-list-close.click() { data-list-active.open === false }
+html.list.close.addEventListener("click", () => {
+  html.list.overlay.removeAttribute("open");
+});
 
 // data-list-button.click() {
 //     document.querySelector([data-list-items]).appendChild(createPreviewsFragment(matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE]))
@@ -237,6 +234,8 @@ html.search.authors.appendChild(createAuthorOptionsHtml());
 //     data-search-overlay.open = false
 // }
 
+
+
 // data-settings-overlay.submit; {
 //     preventDefault()
 //     const formData = new FormData(event.target)
@@ -245,6 +244,8 @@ html.search.authors.appendChild(createAuthorOptionsHtml());
 //     document.documentElement.style.setProperty('--color-light', css[result.theme].light);
 //     data-settings-overlay).open === false
 // }
+
+
 
 // data-list-items.click() {
 //     pathArray = Array.from(event.path || event.composedPath())

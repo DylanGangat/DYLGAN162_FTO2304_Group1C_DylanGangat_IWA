@@ -25416,7 +25416,7 @@ export const html = {
     button: document.querySelector("[data-list-button]"),
     message: document.querySelector("[data-list-message]"),
     overlay: document.querySelector("[data-list-active]"),
-
+    close: document.querySelector("[data-list-close]"),
     items: document.querySelector("[data-list-items]"),
 
     image: document.querySelector("[data-list-image]"),
