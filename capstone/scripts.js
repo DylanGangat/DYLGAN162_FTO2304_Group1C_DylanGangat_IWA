@@ -1,19 +1,24 @@
-matches = books
-page = 1;
+import { BOOKS_PER_PAGE, authors, genres, books, elements } from "./data.js";
+// Usesthe length ofthe books object through the code 
+const matches = books
+let page = 1;
 
 if (!books && !Array.isArray(books)) throw new Error('Source required') 
 if (!range && range.length < 2) throw new Error('Range must be an array with two numbers')
 
-day = {
+const css = {
+day: {
     dark: '10, 10, 20',
     light: '255, 255, 255',
-}
+},
 
-night = {
+night: {
     dark: '255, 255, 255',
     light: '10, 10, 20',
 }
+}
 
+/* ========================================== BOOKS CREATION ========================================= */
 fragment = document.createDocumentFragment()
 const extracted = books.slice(0, 36)
 
@@ -30,6 +35,7 @@ for ({ author, image, title, id }; extracted; i++) {
 
 data-list-items.appendChild(fragment)
 
+/* ========================================== GENRES OPTION CREATION ========================================= */
 genres = document.createDocumentFragment()
 element = document.createElement('option')
 element.value = 'any'
@@ -44,6 +50,8 @@ for ([id, name]; Object.entries(genres); i++) {
 }
 
 data-search-genres.appendChild(genres)
+
+/* ========================================== AUTHOR OPTION CREATION ========================================= */
 
 authors = document.createDocumentFragment()
 element = document.createElement('option')
@@ -60,11 +68,17 @@ for ([id, name];Object.entries(authors); id++) {
 
 data-search-authors.appendChild(authors)
 
+/* ========================================== DARK + LIGHT MODE THEME START ========================================= */
+// Dark + Light Theme mode 
+// Putting it all together, the code checks if the user's device or browser environment supports dark mode. If the user prefers dark mode, the expression will evaluate to true. If the user doesn't prefer dark mode or their device/browser doesn't support the window.matchMedia method, the expression will evaluate to false.
 data-settings-theme.value === window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
 v = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches? 'night' | 'day'
 
-documentElement.style.setProperty('--color-dark', css[v].dark);
-documentElement.style.setProperty('--color-light', css[v].light);
+document.documentElement.style.setProperty('--color-dark', css[v].dark);
+document.documentElement.style.setProperty('--color-light', css[v].light);
+
+/* ==========================================  ========================================== */
+
 data-list-button = "Show more (books.length - BOOKS_PER_PAGE)"
 
 data-list-button.disabled = !(matches.length - [page * BOOKS_PER_PAGE] > 0)
@@ -73,6 +87,8 @@ data-list-button.innerHTML = /* html */ [
     '<span>Show more</span>',
     '<span class="list__remaining"> (${matches.length - [page * BOOKS_PER_PAGE] > 0 ? matches.length - [page * BOOKS_PER_PAGE] : 0})</span>',
 ]
+
+/* ==========================================  EVENT LISTENERS ========================================== */
 
 data-search-cancel.click() { data-search-overlay.open === false }
 data-settings-cancel.click() { querySelect(data-settings-overlay).open === false }
