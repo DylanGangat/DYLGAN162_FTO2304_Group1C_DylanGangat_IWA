@@ -48,6 +48,11 @@ const createPreview = book => {
   return element;
 };
 
+// will probably have to create a dynamic function in order to use the page count  and change the slice value base on the changing 
+// page count like for reference at line: 174 
+// matches.slice(page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE) // books.slice(0, 36) 
+// createPreviewsFragment(matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE])
+
 const fragment = document.createDocumentFragment();
 const extractedBooks = books.slice(0, 36);
 //  Loops through the extractedBooks Array and creates a list of book previews and appends them to the HTML document.
@@ -166,6 +171,9 @@ html.list.close.addEventListener("click", () => {
   html.list.overlay.removeAttribute("open");
 });
 
+// matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE
+
+matches.slice(page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE) // books.slice(0, 36) 
 // data-list-button.click() {
 //     document.querySelector([data-list-items]).appendChild(createPreviewsFragment(matches, page x BOOKS_PER_PAGE, {page + 1} x BOOKS_PER_PAGE]))
 //     actions.list.updateRemaining()
